@@ -7,6 +7,7 @@ public class Question {
     private String question;
     private int answer;
     private double divisionAnswer;
+    private char divisionOperator = '/';
 
     // get random number from 0 to 3
     private int randomOperation = random.nextInt(4);
@@ -70,4 +71,7 @@ public class Question {
         return divisionAnswer;
     }
 
+    public char getDivisionOperator() {
+        return divisionOperator;
+    }
 }
