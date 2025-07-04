@@ -7,7 +7,7 @@ public class Question {
     private String question;
     private int answer;
     private double divisionAnswer;
-    private char divisionOperator = '/';
+    private char divisionOperator;
 
     // get random number from 0 to 3
     private int randomOperation = random.nextInt(4);
@@ -18,8 +18,8 @@ public class Question {
 
     // get random operation
     public void generateQuestion(){
-        firstNum  = random.nextInt(50) + 1;
-        secondNum = random.nextInt(50) + 1;
+        firstNum  = random.nextInt(10) + 1;
+        secondNum = random.nextInt(10) + 1;
 
         switch (randomOperation){
             case 0:
@@ -35,6 +35,7 @@ public class Question {
                 answer = firstNum * secondNum;
                 break;
             default:
+                divisionOperator = '/';
                 divide();
                 break;
         }
