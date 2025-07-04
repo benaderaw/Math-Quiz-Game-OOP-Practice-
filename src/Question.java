@@ -12,11 +12,14 @@ public class Question {
     private int randomOperation = random.nextInt(4);
 
     // fer random number from 1 to 100
-    private int firstNum = random.nextInt(50) + 1;
-    private int secondNum = random.nextInt(50) + 1;
+    private int firstNum = 1;
+    private int secondNum = 1;
 
     // get random operation
     public void generateQuestion(){
+        firstNum  = random.nextInt(50) + 1;
+        secondNum = random.nextInt(50) + 1;
+
         switch (randomOperation){
             case 0:
                 getDisplayQuestion(" + ");
