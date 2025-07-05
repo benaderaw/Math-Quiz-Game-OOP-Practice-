@@ -6,13 +6,15 @@ public class QuizRunner {
     // display quiz 🟢
     // get user inout 🟢
     // answer validation 🟢
-    // track score 🔴
+    // track result 🟢
 
     Scanner scanner = new Scanner(System.in);
     Question newQuestion = new Question();
 
-    int intUserInput = 0;
-    double doubleUserInput = 0.0;
+    private int intUserInput = 0;
+    private double doubleUserInput = 0.0;
+    private boolean isCorrect = false;
+    private int result = 0;
 
     // generate 5 questions
     public void startQuiz(){
@@ -37,7 +39,12 @@ public class QuizRunner {
                 intInputValidation();
                 intAnswerValidation(intAnswer);
             }
+
+            result = (isCorrect) ? result + 1 : result;
         }
+
+        System.out.println("=== RESULT ===");
+        System.out.println("You got " + result + " questions right.");
     }
 
     // int input validation
@@ -73,24 +80,30 @@ public class QuizRunner {
     }
 
     // int answer validation
-    public void intAnswerValidation(int answer){
+    private void intAnswerValidation(int answer){
         answer = newQuestion.getAnswer();
+
         if(intUserInput == answer){
             System.out.println("Correct!");
+            isCorrect = true;
         }else{
             System.out.println("Incorrect");
+            isCorrect = false;
         }
 
         System.out.print("\n");
     }
 
     // double answer validation
-    public void doubleAnswerValidation(double answer){
+    private void doubleAnswerValidation(double answer){
         answer = newQuestion.getDivisionAnswer();
+
         if(doubleUserInput == answer){
             System.out.println("Correct!");
+            isCorrect = true;
         }else{
             System.out.println("Incorrect");
+            isCorrect = false;
         }
 
         System.out.print("\n");
