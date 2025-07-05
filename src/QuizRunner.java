@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 
 public class QuizRunner {
@@ -9,20 +8,19 @@ public class QuizRunner {
     // answer validation 🟢
     // track result 🟢
 
+    // OBJECT INSTANCES
     Scanner scanner = new Scanner(System.in);
     Question newQuestion = new Question();
 
-    private int intUserInput = 0;
-    private double doubleUserInput = 0.0;
+    // FIELDS
+    private int intUserAnswer = 0;
+    private double doubleUserAnswer = 0.0;
     private boolean isCorrect = false;
     private int result = 0;
 
     // generate 5 questions
     public void startQuiz(){
         System.out.println("<=== QUIZ STARTED ===>");
-
-        int intAnswer = 0;
-        double doubleAnswer = 0.0;
 
         // get number of questions from user
         int numOfQuestions = numOfQuestions();
@@ -35,32 +33,30 @@ public class QuizRunner {
             newQuestion.generateQuestion();
             System.out.println(newQuestion.getQuestion());
 
-            // check if the new question is division
-            char operator = newQuestion.getDivisionOperator();
-
-            if(operator == '/'){
+            // validate answer
+            if(newQuestion.isDivisionQuestion()){
                 doubleInputValidation();
-                doubleAnswerValidation(doubleAnswer);
+                doubleAnswerValidation();
             }else{
                 intInputValidation();
-                intAnswerValidation(intAnswer);
+                intAnswerValidation();
             }
 
+            // track result
             result = (isCorrect) ? result + 1 : result;
-            newQuestion.setDivisionOperator(' '); // reset operator variable
         }
 
+        // display result
         System.out.println("=== RESULT ===");
         System.out.println("You got " + result + " questions out of " + numOfQuestions + " right.");
     }
 
-    // number
+    // number of questions
     private int numOfQuestions(){
         int num;
 
         while(true) {
             System.out.print("How many questions do you want: ");
-
             if(scanner.hasNextInt()){
                 num = scanner.nextInt();
                 scanner.nextLine();
@@ -70,7 +66,7 @@ public class QuizRunner {
                 System.out.println("🔶Must be a number...\n");
             }
         }
-
+        
         return num;
     }
 
@@ -80,7 +76,7 @@ public class QuizRunner {
             System.out.print("Your answer: ");
 
             if(scanner.hasNextInt()){
-                intUserInput = scanner.nextInt();
+                intUserAnswer = scanner.nextInt();
                 scanner.nextLine();
                 break;
             }else{
@@ -96,7 +92,7 @@ public class QuizRunner {
             System.out.print("Your answer: ");
 
             if(scanner.hasNextDouble()){
-                doubleUserInput = scanner.nextDouble();
+                doubleUserAnswer = scanner.nextDouble();
                 scanner.nextLine();
                 break;
             }else{
@@ -107,11 +103,10 @@ public class QuizRunner {
     }
 
     // int answer validation
-    private void intAnswerValidation(int answer){
-        answer = newQuestion.getAnswer();
-        System.out.println(answer);
+    private void intAnswerValidation(){
+        int intAnswer = newQuestion.getAnswer();
 
-        if(intUserInput == answer){
+        if(intUserAnswer == intAnswer){
             System.out.println("Correct!");
             isCorrect = true;
         }else{
@@ -123,18 +118,17 @@ public class QuizRunner {
     }
 
     // double answer validation
-    private void doubleAnswerValidation(double answer){
-        answer = newQuestion.getDivisionAnswer();
-        System.out.println(answer);
+    private void doubleAnswerValidation(){
+            double doubleAnswer = newQuestion.getDivisionAnswer();
 
-        if(doubleUserInput == answer){
-            System.out.println("Correct!");
-            isCorrect = true;
-        }else{
-            System.out.println("Incorrect");
-            isCorrect = false;
-        }
+            if(doubleUserAnswer == doubleAnswer){
+                System.out.println("Correct!");
+                isCorrect = true;
+            }else{
+                System.out.println("Incorrect");
+                isCorrect = false;
+            }
 
-        System.out.print("\n");
+            System.out.print("\n");
     }
 }

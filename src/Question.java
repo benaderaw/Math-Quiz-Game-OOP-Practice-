@@ -1,39 +1,47 @@
 import java.util.Random;
 
 public class Question {
+    // ENUMs
+    private enum Operator {ADD, SUBTRACT, MULTIPLY, DIVIDE}
+
     // IMPORTS
     private Random random = new Random();
-    
+
+    // FIELDS
     private String question;
     private int answer;
     private double divisionAnswer;
     private char divisionOperator;
-
-    // fer random number from 1 to 100
+    // for random number from 1 to 100
     private int firstNum = 1;
     private int secondNum = 1;
 
     // get random operation
     public void generateQuestion(){
-        // get random number from 0 to 3
-        int randomOperation = random.nextInt(4);
-        firstNum  = random.nextInt(10) + 1;
-        secondNum = random.nextInt(10) + 1;
+        // get random operator from ENUM
+        Operator[] operators = Operator.values();
+        int rand = random.nextInt(operators.length);
+        Operator randomOperator = operators[rand];
 
-        switch (randomOperation){
-            case 0:
+        // get random numbers for quiz
+        firstNum  = random.nextInt(15) + 1;
+        secondNum = random.nextInt(15) + 1;
+        divisionOperator = ' ';
+
+        switch (randomOperator){
+            case ADD:
                 displayQuestion(" + ");
                 answer = firstNum + secondNum;
                 break;
-            case 1:
+            case SUBTRACT:
                 displayQuestion(" - ");
                 answer = firstNum - secondNum;
                 break;
-            case 2:
+            case MULTIPLY:
                 displayQuestion(" * ");
                 answer = firstNum * secondNum;
                 break;
-            case 3:
+            case DIVIDE:
                 displayQuestion(" / ");
                 divisionOperator = '/';
                 divide();
@@ -62,7 +70,12 @@ public class Question {
         }
     }
 
-    // GETTER METHODS
+    // check if question is division
+    public boolean isDivisionQuestion() {
+        return divisionOperator == '/';
+    }
+
+    // GETTER
     public String getQuestion(){
         return question;
     }
@@ -73,14 +86,5 @@ public class Question {
 
     public double getDivisionAnswer() {
         return divisionAnswer;
-    }
-
-    public char getDivisionOperator() {
-        return divisionOperator;
-    }
-
-    //
-    public void setDivisionOperator(char op) {
-        this.divisionOperator = op;
     }
 }
