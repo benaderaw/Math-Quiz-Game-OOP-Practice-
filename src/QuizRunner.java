@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class QuizRunner {
@@ -23,9 +24,14 @@ public class QuizRunner {
         int intAnswer = 0;
         double doubleAnswer = 0.0;
 
+        // get number of questions from user
+        int numOfQuestions = numOfQuestions();
+
         // run quiz 5 times and display to console
-        for(int i = 1; i <= 5; i++){
+        for(int i = 1; i <= numOfQuestions; i++){
             System.out.print(i + ". ");
+
+            // generate and display question
             newQuestion.generateQuestion();
             System.out.println(newQuestion.getQuestion());
 
@@ -41,10 +47,31 @@ public class QuizRunner {
             }
 
             result = (isCorrect) ? result + 1 : result;
+            newQuestion.setDivisionOperator(' '); // reset operator variable
         }
 
         System.out.println("=== RESULT ===");
-        System.out.println("You got " + result + " questions right.");
+        System.out.println("You got " + result + " questions out of " + numOfQuestions + " right.");
+    }
+
+    // number
+    private int numOfQuestions(){
+        int num;
+
+        while(true) {
+            System.out.print("How many questions do you want: ");
+
+            if(scanner.hasNextInt()){
+                num = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            }else{
+                scanner.nextLine();
+                System.out.println("🔶Must be a number...\n");
+            }
+        }
+
+        return num;
     }
 
     // int input validation
@@ -82,6 +109,7 @@ public class QuizRunner {
     // int answer validation
     private void intAnswerValidation(int answer){
         answer = newQuestion.getAnswer();
+        System.out.println(answer);
 
         if(intUserInput == answer){
             System.out.println("Correct!");
@@ -97,6 +125,7 @@ public class QuizRunner {
     // double answer validation
     private void doubleAnswerValidation(double answer){
         answer = newQuestion.getDivisionAnswer();
+        System.out.println(answer);
 
         if(doubleUserInput == answer){
             System.out.println("Correct!");

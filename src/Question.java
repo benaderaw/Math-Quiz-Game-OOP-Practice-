@@ -9,40 +9,43 @@ public class Question {
     private double divisionAnswer;
     private char divisionOperator;
 
-    // get random number from 0 to 3
-    private int randomOperation = random.nextInt(4);
-
     // fer random number from 1 to 100
     private int firstNum = 1;
     private int secondNum = 1;
 
     // get random operation
     public void generateQuestion(){
+        // get random number from 0 to 3
+        int randomOperation = random.nextInt(4);
         firstNum  = random.nextInt(10) + 1;
         secondNum = random.nextInt(10) + 1;
 
         switch (randomOperation){
             case 0:
-                getDisplayQuestion(" + ");
+                displayQuestion(" + ");
                 answer = firstNum + secondNum;
                 break;
             case 1:
-                getDisplayQuestion(" - ");
+                displayQuestion(" - ");
                 answer = firstNum - secondNum;
                 break;
             case 2:
-                getDisplayQuestion(" * ");
+                displayQuestion(" * ");
                 answer = firstNum * secondNum;
                 break;
-            default:
+            case 3:
+                displayQuestion(" / ");
                 divisionOperator = '/';
                 divide();
+                break;
+            default:
+                System.out.println("🔴[ERROR] Something went wrong...");
                 break;
         }
     }
 
     // get question for display and answer to check users answer
-    private void getDisplayQuestion(String operationSymbol){
+    private void displayQuestion(String operationSymbol){
         question = "What is " + firstNum + operationSymbol + secondNum + "?";
     }
 
@@ -74,5 +77,10 @@ public class Question {
 
     public char getDivisionOperator() {
         return divisionOperator;
+    }
+
+    //
+    public void setDivisionOperator(char op) {
+        this.divisionOperator = op;
     }
 }

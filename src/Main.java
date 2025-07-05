@@ -6,6 +6,7 @@ public class Main {
 
         QuizRunner quiz = new QuizRunner();
 
+        // start quiz game
         quiz.startQuiz();
     }
 }
